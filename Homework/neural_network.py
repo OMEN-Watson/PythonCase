@@ -1,9 +1,9 @@
 ## COMP1730/6730 Homework 2
 
-# Your ANU ID: u1234567
+# Your ANU ID: u7568823
 # I declare that this submission is my own work
 # [ref: https://www.anu.edu.au/students/academic-skills/academic-integrity ]
-# Your NAME: George Gregan
+# Your NAME: Fan Yue
 
 import math
 
@@ -12,7 +12,12 @@ import math
 ## into smaller problems.
 
 def neural_network(x1, x2, x3, w1, w2, w3, w4, w5, w6, b1, b2, b3):
-	pass
+    relu1=max( x1*w1+x2*w2+b1,0.0)
+    relu2=max( x2*w3+x3*w4+b2,0.0)
+    oneNum=b3+(w5*relu1+w6*relu2)
+    res= 1/(1+ math.exp(-oneNum))
+    return res
+	 
 
 ################################################################################
 #               DO NOT MODIFY ANYTHING BELOW THIS POINT
@@ -46,3 +51,5 @@ def test_neural_network():
     assert math.fabs(neural_network(1, 2.5, 3.2, -1.0, -1.4, 1.1, -1.6, -0.5, -3.9, 1, -2.2, 5.0)  - 0.9933071491) < 1e-6    
 
     print("all tests passed")
+
+test_neural_network()
