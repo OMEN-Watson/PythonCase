@@ -49,8 +49,25 @@ def isInTheBoard(rowShape,colShape, newRow,newCol):
     return True
 
 def generate_next_board(board):
-    pass
 
+    widthAndLength= board.shape
+    rowShape= widthAndLength[0]
+    colShape=widthAndLength[1]
+    zeros=np.zeros((rowShape,colShape))
+    for row in range(0,rowShape) :
+        for col in range(0,colShape):
+            lives= count_live_neighbours(board,row,col)
+            if(board[row,col]==1):
+                if(lives<=1): 
+                    zeros[row,col]=0
+                if(lives==2 or lives==3): 
+                    zeros[row,col]=1
+                if(lives>3): 
+                    zeros[row,col]=0
+            if(board[row,col]==0):  
+                if(lives==3): 
+                    zeros[row,col]=1  
+    return zeros
 
         
 
@@ -216,3 +233,4 @@ def test_generate_next_board():
 
 
 test_count_live_neighbours()
+test_generate_next_board()
