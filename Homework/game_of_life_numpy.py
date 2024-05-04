@@ -167,7 +167,7 @@ def evolve_life_box(steps):
 # animation1 = evolve_life_beacon(10)
 # animation2 = evolve_life_glider_gun(1000)
 # animation3 = evolve_life_line(1000)
-# animation4 = evolve_life_box(1000)
+animation4 = evolve_life_box(1000)
 
 
 ################################################################################

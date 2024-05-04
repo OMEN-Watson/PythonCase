@@ -1,0 +1,27 @@
+def make_list_of_lists(n):
+	the_list = []
+	sublist = []
+	while n > 0:
+		the_list.append(sublist)
+		sublist.append(len(sublist) + 1)
+		n = n - 1
+	return the_list
+
+
+def make_list_of_lists2(n):
+
+	the_list = []
+	sublist = []
+	print(len(sublist))
+	for i in range(n):
+		the_list.extend(sublist)
+		
+		if(len(sublist)>0):
+			sublist.insert(len(sublist), i)
+	# sublist = sublist.insert(len(sublist), i)
+		else:
+			sublist.append(0)
+	return the_list
+# make_list_of_lists(5)
+
+make_list_of_lists2(5)
