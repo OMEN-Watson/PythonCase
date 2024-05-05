@@ -113,17 +113,65 @@ def create_grid(size=5):
             result.append(oneArray)
     return result
 
-# tempSize=9
-# tempArray=create_grid(tempSize)  
-# for i in range(tempSize):
-#     print (tempArray[i])
- 
+
+
 # Task 5
 
 def simulate_2d_diffusion(grid):
     """ argument: current 2D grid 
     returns updated grid after one iteration of simulation """
-    pass
+
+    lenArray=len(grid)
+    # new array to store the result after running
+    newArray=[[0]*lenArray for _ in range(lenArray)]
+
+    for row in range(lenArray):
+        for col in range(lenArray):
+            topValue=0
+            leftValue=0
+            BotValue=0
+            RightValue=0
+            rowPre= row-1
+            rowPost=row+1
+            colPre=col-1
+            colPost= col+1
+
+            # top
+            if  rowPre>=0:
+                topValue= grid[rowPre][col]
+
+            # right
+            if  colPost<=lenArray-1:
+                RightValue= grid[row][colPost]
+            # bot
+            if  rowPost<=lenArray-1:
+                BotValue= grid[rowPost][col]
+            # left
+            if  colPre>=0:
+                leftValue= grid[row][colPre]
+            dataArray=[grid[row][col],topValue,RightValue,BotValue,leftValue] 
+            newArray[row][col]= getArrayMean(dataArray)
+
+
+        
+    return newArray
+     
+# region testGrid
+
+# tempSize=6
+# tempArray=create_grid(tempSize)  
+# print(len(tempArray))
+# lenArray=len(tempArray)
+# newArray=[[0]*lenArray for _ in range(lenArray)]
+# for i in range(tempSize):
+#     print (newArray[i])
+
+# print(len(tempArray))
+# for i in range(tempSize):
+#     print (tempArray[i])
+
+#endregion
+
 
 # 2D diffusion exercise code:
 def multiple_iterations(grid, num_iterations):
@@ -136,6 +184,7 @@ def multiple_iterations(grid, num_iterations):
 def exercise_2D_diffusion():    
     multiple_iterations(create_grid(),5)
 
+exercise_2D_diffusion()
 # Task 6
 
 def simulate_large_scale(num_iterations,size=10):
