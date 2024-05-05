@@ -1,7 +1,7 @@
 ## COMP1730/6730 Project assignment
 
-# Your ANU ID: u1234567
-# Your NAME: Name Surname
+# Your ANU ID: u7568823
+# Your NAME: Fan Yue
 # I declare that this submission is my own work
 # [ref: https://www.anu.edu.au/students/academic-skills/academic-integrity ]
 
@@ -56,22 +56,22 @@ def getArrayMean(array):
 #region testRegion
 
 
-oneA=create_array()
-newOneA=simulate_1d_diffusion(oneA);
-newNewOneA=simulate_1d_diffusion(newOneA);
-print(oneA)
-print(newOneA)
-print(newNewOneA)
+# oneA=create_array()
+# newOneA=simulate_1d_diffusion(oneA);
+# newNewOneA=simulate_1d_diffusion(newOneA);
+# print(oneA)
+# print(newOneA)
+# print(newNewOneA)
 
 
-newOneAP=plt.plot(newOneA)
-newNewOneAP=plt.plot(newNewOneA)
-# plt.legend(handles=[oneAP,newOneAP,newNewOneAP],labels=['oneA','newOneA','newNewOneA'],loc='best')
-l0=plt.plot(oneA,label='oneA')
-l1=plt.plot(newOneA,label='newOneA')
-l2=plt.plot(newNewOneA,label='newNewOneA')
-plt.legend(loc=0)
-plt.show()
+# newOneAP=plt.plot(newOneA)
+# newNewOneAP=plt.plot(newNewOneA)
+# # plt.legend(handles=[oneAP,newOneAP,newNewOneAP],labels=['oneA','newOneA','newNewOneA'],loc='best')
+# l0=plt.plot(oneA,label='oneA')
+# l1=plt.plot(newOneA,label='newOneA')
+# l2=plt.plot(newNewOneA,label='newNewOneA')
+# plt.legend(loc=0)
+# plt.show()
 #endregion
 
 # Task 3
@@ -79,9 +79,11 @@ plt.show()
 def plot_temperatures(initial, new, new2):
     """parameters: initial=original array, new=after 1 iteration, new2=after 2 iterations"""
     
-    plt.plot(initial)
-    plt.plot(new)
-    plt.plot(new2)
+    l0=plt.plot(initial,label='initial')
+    l1=plt.plot(new,label='new')
+    l2=plt.plot(new2,label='new2')
+    plt.legend(loc=0)
+   
     plt.show()
 
 # 1D diffusion exercise code:
@@ -91,13 +93,31 @@ def exercise_1D_diffusion():
     new_array2 = simulate_1d_diffusion(new_array1)
     plot_temperatures(initial_array, new_array1, new_array2)
 
+# exercise_1D_diffusion()
 # Task 4
 
 def create_grid(size=5):
     """ argument: grid division
     returns size x size 2D grid as list of list """
-    pass
-        
+    result=[]
+    for i in range(size):
+        # the top and botttom row
+        if i==0 or i==size-1:
+            oneArray=[1]*size
+            result.append(oneArray)
+            # middle row
+        else:
+            oneArray=[0]*size
+            oneArray[0]=1
+            oneArray[size-1]=1
+            result.append(oneArray)
+    return result
+
+# tempSize=9
+# tempArray=create_grid(tempSize)  
+# for i in range(tempSize):
+#     print (tempArray[i])
+ 
 # Task 5
 
 def simulate_2d_diffusion(grid):
