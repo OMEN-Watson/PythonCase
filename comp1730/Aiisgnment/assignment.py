@@ -127,10 +127,7 @@ def simulate_2d_diffusion(grid):
 
     for row in range(lenArray):
         for col in range(lenArray):
-            topValue=0
-            leftValue=0
-            BotValue=0
-            RightValue=0
+            dataArray=[grid[row][col] ] 
             rowPre= row-1
             rowPost=row+1
             colPre=col-1
@@ -138,18 +135,17 @@ def simulate_2d_diffusion(grid):
 
             # top
             if  rowPre>=0:
-                topValue= grid[rowPre][col]
-
+                dataArray.append(grid[rowPre][col]) 
             # right
             if  colPost<=lenArray-1:
-                RightValue= grid[row][colPost]
+                dataArray.append( grid[row][colPost])
             # bot
             if  rowPost<=lenArray-1:
-                BotValue= grid[rowPost][col]
+                dataArray.append( grid[rowPost][col])
             # left
             if  colPre>=0:
-                leftValue= grid[row][colPre]
-            dataArray=[grid[row][col],topValue,RightValue,BotValue,leftValue] 
+                dataArray.append( grid[row][colPre])
+            
             newArray[row][col]= getArrayMean(dataArray)
 
 
