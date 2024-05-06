@@ -152,6 +152,19 @@ def simulate_2d_diffusion(grid):
         
     return newArray
      
+
+# 2D diffusion exercise code:
+def multiple_iterations(grid, num_iterations):
+    for _ in range(num_iterations):
+        for row in grid:
+            print(' '.join(f'{temp:.2f}' for temp in row))
+        print()
+        grid = simulate_2d_diffusion(grid)
+
+def exercise_2D_diffusion():    
+    multiple_iterations(create_grid(),5)
+
+# exercise_2D_diffusion()
 # region testGrid
 
 # tempSize=6
@@ -166,21 +179,13 @@ def simulate_2d_diffusion(grid):
 # for i in range(tempSize):
 #     print (tempArray[i])
 
+# grid=[
+#   [1.0 ,2.0 ,3.0],[4.0 ,5.0 ,6.0],[7.0 ,8.0 ,9.0]  
+# ]
+# multiple_iterations(grid,2)
 #endregion
 
 
-# 2D diffusion exercise code:
-def multiple_iterations(grid, num_iterations):
-    for _ in range(num_iterations):
-        for row in grid:
-            print(' '.join(f'{temp:.2f}' for temp in row))
-        print()
-        grid = simulate_2d_diffusion(grid)
-
-def exercise_2D_diffusion():    
-    multiple_iterations(create_grid(),5)
-
-exercise_2D_diffusion()
 # Task 6
 
 def simulate_large_scale(num_iterations,size=10):
@@ -188,12 +193,77 @@ def simulate_large_scale(num_iterations,size=10):
                    size=dimension of 2D grid 
         No return value.
         Use NumPy for efficient large-scale simulation and visualization, correctly handling edges."""
-    pass
+    # matrix= create_grid(size)
+    
+    # plt.matshow(matrix, cmap='hot')
+    # plt.colorbar()
+    # plt.title('Temperature Distribution before Iteration ')
+    # for tims in range(num_iterations-1):
+    #     matrix= oneIteration(matrix)
+    #     plt.matshow(matrix, cmap='hot')
+    #     plt.colorbar()
+    #     plt.title(f'Temperature Distribution After {tims+1} Iteration ')
+    #     # plt.subplot(matrix)
+  
+    # plt.show()
+    # fig,(ax1,ax2,ax3,ax4,ax5)=plt.subplots(1,5)
+   
+    # objectArra=[ax1,ax2,ax3,ax4,ax5]
+    matrix= create_grid(size)
+   
+
+    plt.title('Temperature Distribution before Iteration ')
+    fig,axes=plt.subplots(1,5)
+    
+    # plt.colorbar()
+    for tims in range(num_iterations-1):
+        matrix= oneIteration(matrix)
+        axes[tims].matshow(matrix, cmap='hot')
+        plt.title(f'Temperature Distribution After {tims+1} Iteration ')
+        # plt.subplot(matrix)
+  
+    plt.show()
+ 
+    # return result
+
+# simulate_large_scale(1,10)
+def oneIteration(matrix):
+    matrix=np.array(matrix)
+    # Pad the input matrix with zeros to handle edge cases easily
+    padded_matrix = np.pad(matrix, ((1, 1), (1, 1)), mode='constant')
+    # Define the kernel for averaging
+    kernel = np.array([[0, 1, 0],
+                       [1, 1, 1],
+                       [0, 1, 0]])
+    # Apply the convolution operation with the kernel
+    result = np.zeros_like(matrix,dtype=float)
+ 
+    it=np.nditer(padded_matrix,flags=['multi_index'])
+    while not it.finished:
+        i=it.multi_index[0]
+        j=it.multi_index[1]
+        if i<matrix.shape[0] and j<matrix.shape[1]:
+            sumTemp=np.sum(kernel * padded_matrix[i:i+3, j:j+3])
+            # at the corner
+            if i==0 or i==matrix.shape[0]-1:
+                if  j==0 or j==matrix.shape[1]-1:
+                    result[i, j]=sumTemp/3
+                else:
+                    result[i, j]=sumTemp/4
+            elif j==0 or j==matrix.shape[1]-1:
+                result[i, j]=sumTemp/4
+            else :
+                 result[i, j]=sumTemp/5
+                           
+        it.iternext()
+    return result
+
 
 # 2D diffusion (numpy implementation) exercise code:
 def exercise_2D_diffusion_numpy():    
     simulate_large_scale(5)
 
+exercise_2D_diffusion_numpy()
 # Task 7:
     
 def create_graph():
