@@ -193,40 +193,24 @@ def simulate_large_scale(num_iterations,size=10):
                    size=dimension of 2D grid 
         No return value.
         Use NumPy for efficient large-scale simulation and visualization, correctly handling edges."""
-    # matrix= create_grid(size)
-    
-    # plt.matshow(matrix, cmap='hot')
-    # plt.colorbar()
-    # plt.title('Temperature Distribution before Iteration ')
-    # for tims in range(num_iterations-1):
-    #     matrix= oneIteration(matrix)
-    #     plt.matshow(matrix, cmap='hot')
-    #     plt.colorbar()
-    #     plt.title(f'Temperature Distribution After {tims+1} Iteration ')
-    #     # plt.subplot(matrix)
-  
-    # plt.show()
-    # fig,(ax1,ax2,ax3,ax4,ax5)=plt.subplots(1,5)
-   
-    # objectArra=[ax1,ax2,ax3,ax4,ax5]
-    matrix= create_grid(size)
-   
 
-    plt.title('Temperature Distribution before Iteration ')
-    fig,axes=plt.subplots(1,5)
+    matrix= create_grid(size)
     
-    # plt.colorbar()
+    plt.matshow(matrix, cmap='hot')
+    plt.colorbar()
+    plt.title('Temperature Distribution before Iteration ')
+    plt.show()
     for tims in range(num_iterations-1):
         matrix= oneIteration(matrix)
-        axes[tims].matshow(matrix, cmap='hot')
+        plt.matshow(matrix, cmap='hot')
+        plt.colorbar()
         plt.title(f'Temperature Distribution After {tims+1} Iteration ')
-        # plt.subplot(matrix)
+        plt.show()# plt.subplot(matrix)
   
-    plt.show()
+
  
     # return result
 
-# simulate_large_scale(1,10)
 def oneIteration(matrix):
     matrix=np.array(matrix)
     # Pad the input matrix with zeros to handle edge cases easily
@@ -263,7 +247,7 @@ def oneIteration(matrix):
 def exercise_2D_diffusion_numpy():    
     simulate_large_scale(5)
 
-# exercise_2D_diffusion_numpy()
+exercise_2D_diffusion_numpy()
 # Task 7:
     
 def create_graph():
@@ -321,13 +305,7 @@ def simulate_diffusion(edges, temperatures):
 
     return result
     
-def testDif():
-    edges, temperatures = create_graph()
-    # visualize_graph(edges, temperatures)
-      # simulate multiple iterations
-    temperatures = simulate_diffusion(edges, temperatures)
-    # visualize_graph(edges, temperatures)
-# testDif()
+
 # Graph diffusion exercise code:
 
 def exercise_graph_diffusion():
@@ -337,5 +315,5 @@ def exercise_graph_diffusion():
     for _ in range(3):  # simulate multiple iterations
         temperatures = simulate_diffusion(edges, temperatures)
         visualize_graph(edges, temperatures)
-exercise_graph_diffusion()
+
     
