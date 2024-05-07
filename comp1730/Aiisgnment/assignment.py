@@ -19,6 +19,7 @@ import array as arr
 
 def create_array():
     """ returns created array """
+    # The array has boundaries with '1' and is filled with zeros in the middle.
     zeroArray= [1,0,0,0,0,0,0,0,0,1];
     
     return zeroArray;
@@ -28,6 +29,11 @@ def create_array():
 def simulate_1d_diffusion(array):
     """ argument: current array
         returns updated array """
+    # Args:
+    #     array (list of int): Current state of the 1D array.
+    
+    # Returns:
+    #     list of int: Updated state after one diffusion step.
     lenArray=len(array)
     # new array to store the result after running
     newArray=[None for _ in range(lenArray)]
@@ -44,6 +50,7 @@ def simulate_1d_diffusion(array):
     return newArray
 # get the average of an array
 def getArrayMean(array):
+    #  """Calculate the mean of a list of numbers, rounded to three decimal places."""
     average=0;
     lenArray=len(array)
     for oneNumber in array:
@@ -53,7 +60,7 @@ def getArrayMean(array):
     return average;
  
 
-#region testRegion
+
 
 
 # oneA=create_array()
@@ -93,7 +100,7 @@ def exercise_1D_diffusion():
     new_array2 = simulate_1d_diffusion(new_array1)
     plot_temperatures(initial_array, new_array1, new_array2)
 
-# exercise_1D_diffusion()
+
 # Task 4
 
 def create_grid(size=5):
@@ -101,11 +108,12 @@ def create_grid(size=5):
     returns size x size 2D grid as list of list """
     result=[]
     for i in range(size):
+        # Boundary rows
         # the top and botttom row
         if i==0 or i==size-1:
             oneArray=[1]*size
-            result.append(oneArray)
-            # middle row
+            result.append(oneArray)            
+            # Middle rows with boundaries at the ends
         else:
             oneArray=[0]*size
             oneArray[0]=1
@@ -132,7 +140,7 @@ def simulate_2d_diffusion(grid):
             rowPost=row+1
             colPre=col-1
             colPost= col+1
-
+            # Collect values from neighbors if within grid boundaries
             # top
             if  rowPre>=0:
                 dataArray.append(grid[rowPre][col]) 
@@ -212,6 +220,15 @@ def simulate_large_scale(num_iterations,size=10):
     # return result
 
 def oneIteration(matrix):
+    """
+    Perform one iteration of 2D diffusion using a convolution-like operation.
+    
+    Args:
+        matrix (list of list of int): Current state of the matrix.
+    
+    Returns:
+        numpy.ndarray: Updated state of the matrix after the iteration.
+    """
     matrix=np.array(matrix)
     # Pad the input matrix with zeros to handle edge cases easily
     padded_matrix = np.pad(matrix, ((1, 1), (1, 1)), mode='constant')
@@ -226,16 +243,20 @@ def oneIteration(matrix):
     while not it.finished:
         i=it.multi_index[0]
         j=it.multi_index[1]
+          # Adjust indices for the padding offset
         if i<matrix.shape[0] and j<matrix.shape[1]:
             sumTemp=np.sum(kernel * padded_matrix[i:i+3, j:j+3])
             # at the corner
             if i==0 or i==matrix.shape[0]-1:
                 if  j==0 or j==matrix.shape[1]-1:
                     result[i, j]=sumTemp/3
+                    # top or  bottom boundary cell but not at the  corner
                 else:
                     result[i, j]=sumTemp/4
+            #    left or right bounary cell but not at the corner     
             elif j==0 or j==matrix.shape[1]-1:
                 result[i, j]=sumTemp/4
+                # regular one
             else :
                  result[i, j]=sumTemp/5
                            
@@ -247,7 +268,7 @@ def oneIteration(matrix):
 def exercise_2D_diffusion_numpy():    
     simulate_large_scale(5)
 
-exercise_2D_diffusion_numpy()
+
 # Task 7:
     
 def create_graph():
@@ -290,18 +311,14 @@ def simulate_diffusion(edges, temperatures):
     temperatures=current temps of graph nodes
     returns updated temperatures list"""
 
-    temperaturesNp=np.array(temperatures)
+    temperatures_np =np.array(temperatures)
     result=[0 for i in range(10)]
     for i in range(len(edges)):
-        testNpArray=np.array(edges[i])
-        res=temperaturesNp[testNpArray]
-        res=np.append(res,temperaturesNp[i])
-        result[i] =np.mean(res)
+        neighbors =np.array(edges[i])
+        neighbor_temps =temperatures_np [neighbors ]
+        neighbor_temps =np.append(neighbor_temps ,temperatures_np [i])
+        result[i] =np.mean(neighbor_temps )
  
-
-        
-
-
 
     return result
     
@@ -316,4 +333,3 @@ def exercise_graph_diffusion():
         temperatures = simulate_diffusion(edges, temperatures)
         visualize_graph(edges, temperatures)
 
-    
