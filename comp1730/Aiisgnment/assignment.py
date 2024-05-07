@@ -263,7 +263,7 @@ def oneIteration(matrix):
 def exercise_2D_diffusion_numpy():    
     simulate_large_scale(5)
 
-exercise_2D_diffusion_numpy()
+# exercise_2D_diffusion_numpy()
 # Task 7:
     
 def create_graph():
@@ -299,12 +299,35 @@ def visualize_graph(edges, temperatures):
     plt.axis('off')
     plt.show()
 
+# tempRes= create_graph()
+# visualize_graph(tempRes[0],tempRes[1])
 def simulate_diffusion(edges, temperatures):
     """ arguments: edges=edge list defining graph, 
     temperatures=current temps of graph nodes
     returns updated temperatures list"""
-    pass
 
+    temperaturesNp=np.array(temperatures)
+    result=[0 for i in range(10)]
+    for i in range(len(edges)):
+        testNpArray=np.array(edges[i])
+        res=temperaturesNp[testNpArray]
+        res=np.append(res,temperaturesNp[i])
+        result[i] =np.mean(res)
+ 
+
+        
+
+
+
+    return result
+    
+def testDif():
+    edges, temperatures = create_graph()
+    # visualize_graph(edges, temperatures)
+      # simulate multiple iterations
+    temperatures = simulate_diffusion(edges, temperatures)
+    # visualize_graph(edges, temperatures)
+# testDif()
 # Graph diffusion exercise code:
 
 def exercise_graph_diffusion():
@@ -314,5 +337,5 @@ def exercise_graph_diffusion():
     for _ in range(3):  # simulate multiple iterations
         temperatures = simulate_diffusion(edges, temperatures)
         visualize_graph(edges, temperatures)
-
+exercise_graph_diffusion()
     
