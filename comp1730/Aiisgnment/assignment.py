@@ -100,7 +100,7 @@ def exercise_1D_diffusion():
     new_array2 = simulate_1d_diffusion(new_array1)
     plot_temperatures(initial_array, new_array1, new_array2)
 
-
+# exercise_1D_diffusion()
 # Task 4
 
 def create_grid(size=5):
@@ -263,7 +263,7 @@ def oneIteration(matrix):
         it.iternext()
     return result
 
-
+# simulate_large_scale(2,1)
 # 2D diffusion (numpy implementation) exercise code:
 def exercise_2D_diffusion_numpy():    
     simulate_large_scale(5)
